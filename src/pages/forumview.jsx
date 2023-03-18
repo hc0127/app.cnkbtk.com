@@ -71,7 +71,7 @@ export default function ForumView(props) {
                         </Grid>
                     }
                 />
-                <CardContent sx={{ p: '0',paddingBottom:'0' }}>
+                <CardContent sx={{ p: '0' }}>
                     <Grid container>
                         <Grid item md={2}>
                             <Box sx={{ backgroundColor: 'secondary.light', width: '100%' }}>
@@ -125,7 +125,7 @@ export default function ForumView(props) {
                                             <Typography color="secondary.dark">{"时间 "+ "2022-12-31 10:50:30"}</Typography>
                                         </Grid>
                                         <Grid item>
-                                            <Typography color="secondary.dark">{"时间 "+ "2022-12-31 10:50:30"}</Typography>
+                                            <Typography color="secondary.dark">|</Typography>
                                         </Grid>
                                         <Grid item>
                                             <Typography color="secondary.dark">{"阅读 "+ "221"}</Typography>

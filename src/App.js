@@ -69,6 +69,11 @@ function App() {
           <Route path="/forum/list/:fid" element={<ForumList />} />
           <Route path="/forum/view/:tid" element={<ForumView />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/admin" element={<Profile />} />
+          <Route path="/admin/users" element={<Profile />} />
+          <Route path="/admin/tags" element={<Profile />} />
+          <Route path="/admin/categorys" element={<Profile />} />
+          <Route path="/admin/posts" element={<Profile />} />
         </Route>
       </Routes>
     </ThemeProvider>

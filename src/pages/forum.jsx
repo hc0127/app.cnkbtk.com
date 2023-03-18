@@ -49,7 +49,7 @@ export default function Forum(props) {
             </Carousel>
           </Grid>
           <Grid item sm={6} md={6} xl={6} lg={6}>
-            <img alt="gallery" src='images/banner.jpg' width={"100%"} />
+            <img alt="gallery" src='images/104521jm1mstocwoitcwis.png' width={"100%"} />
           </Grid>
           <Grid item sm={12} md={12} xl={12} lg={12} mt={3}>
             <Paper className="p-3" elevation={3}>

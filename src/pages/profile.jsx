@@ -46,7 +46,7 @@ export default function Profile(props) {
 
     const changeAvatar = () =>{
         axios
-        .post('/change_avatar',{image:images[0]})
+        .post('/change_avatar',{image:images})
         .then(function(res){
             console.log(res);
         });
@@ -178,7 +178,7 @@ export default function Profile(props) {
                             </Grid>
                         </MDBModalBody>
                         <MDBModalFooter>
-                            <Button onClick={() => passwordModalToggle()} color='grey'>Canacel</Button>
+                            <Button onClick={() => passwordModalToggle()} color='secondary'>Canacel</Button>
                             <Button onClick={() => changePassword()}  color='primary'>Change</Button>
                         </MDBModalFooter>
                     </MDBModalContent>
@@ -215,7 +215,7 @@ export default function Profile(props) {
                             </ImageUploading>
                         </MDBModalBody>
                         <MDBModalFooter>
-                            <Button onClick={() => avatarModalToggle()} color='grey'>Canacel</Button>
+                            <Button onClick={() => avatarModalToggle()} color='secondary'>Canacel</Button>
                             <Button onClick={() => changeAvatar()} color='primary'>Change</Button>
                         </MDBModalFooter>
                     </MDBModalContent>
