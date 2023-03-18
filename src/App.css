@@ -1,5 +1,9 @@
 @import url("https://fonts.google.com");
 
+body *{
+  font-family: sans-serif;
+}
+
 .App {
   text-align: center;
 }
@@ -29,4 +33,13 @@ h1 {
   /* height:100vh; */
   position: absolute;
   display: flex;
+}
+
+/* a links style */
+a:not(.to_post){
+  color:black !important;
+}
+
+.to_page:hover, .to_category:hover{
+  color:red !important;
 }
