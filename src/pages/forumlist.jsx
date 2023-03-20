@@ -26,21 +26,30 @@ import { NavLink } from 'react-router-dom';
 
 export default function ForumList(props) {
 
-    let forums = [{
-        tid:1,
+    //api datas
+    const [forum_info, setForumInfo] = useState({gid:1,gtitle:'公示',fid:1,ftitle:'会员须知',group_forums:[
+        {
+          fid: 2, title: '会员须知', topics: 8, posts: 8,
+          newest_post: { tid: 86, title: '发帖教程' }
+        }, {
+          fid: 3, title: '创作者须知', topics: 4, posts: 4,
+          newest_post: { tid: 56, title: '发帖教程' }
+        }]});
+    const [posts, setPosts] = useState([{
+        tid: 1,
         topics: 'topic 1',
         author: 'admin 1',
         reply: 2,
         view: 5,
         finalpost: 'admin 1',
     }, {
-        tid:2,
+        tid: 2,
         topics: 'topic 2',
         author: 'admin 2',
         reply: 5,
         view: 15,
         finalpost: 'admin 2',
-    }];
+    }]);
 
     let forumColumns = [
         {
@@ -54,7 +63,7 @@ export default function ForumList(props) {
             center: true,
             wrap: true,
             sortable: true,
-            cell: (d) => <NavLink to={'/forum/view/'+d.tid}>{d.topics}</NavLink>,
+            cell: (d) => <NavLink to={'/forum/view/' + d.tid}>{d.topics}</NavLink>,
         },
         {
             name: "作者",
@@ -93,8 +102,8 @@ export default function ForumList(props) {
                 <Breadcrumbs aria-label="breadcrumb" separator="›">
                     <NavLink to='/'><Home /></NavLink>
                     <NavLink to='/forum'>论坛</NavLink>
-                    <NavLink to='/forum?gid=1'>公示</NavLink>
-                    <NavLink to='/forum/list/1'>会员须知</NavLink>
+                    <NavLink to={'/forum?gid=' + forum_info.gid}>{forum_info.gtitle}</NavLink>
+                    <NavLink to={'/forum/list/' + forum_info.fid}>{forum_info.ftitle}</NavLink>
                 </Breadcrumbs>
             </Grid>
             <Grid item container direction="row" alignItems="flex-start" justifyContent="flex-start">
@@ -106,7 +115,7 @@ export default function ForumList(props) {
                                     <img src='../../images/document.png' width='100%' />
                                 </Grid>
                                 <Grid item>
-                                    <NavLink to='/forum/list/1'>会员须知</NavLink>
+                                    <NavLink to={'/forum/list/' + forum_info.fid}>{forum_info.ftitle}</NavLink>
                                 </Grid>
                                 <Grid item>
                                     <Typography variant='span'>今日:</Typography><Typography variant='span' color='primary'>1</Typography>
@@ -133,7 +142,7 @@ export default function ForumList(props) {
                     <Grid item sx={{ width: '100%' }}>
                         <DataTable
                             columns={forumColumns}
-                            data={forums}
+                            data={posts}
                             fixedHeader
                             defaultPageSize={100}
                             pagination
@@ -147,8 +156,11 @@ export default function ForumList(props) {
                                 <NavLink to='/forum/list'>所属分类:公示栏</NavLink>
                             </CardContent>
                             <CardActions>
-                                <NavLink className='m-2' to='/forum/list/1'>会员须知</NavLink>
-                                <NavLink className='m-2' to='/forum/list/2'>创作者须知</NavLink>
+                                {
+                                    forum_info?.group_forums.map((forum,index) =>{
+                                        return <NavLink className='m-2' to={'/forum/list/'+forum.fid}>{forum.title}</NavLink>
+                                    })
+                                }
                             </CardActions>
                         </Card>
                     </Grid>

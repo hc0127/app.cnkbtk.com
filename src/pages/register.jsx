@@ -19,13 +19,13 @@ export default function Register(props) {
     console.log("Captcha value:", value);
   }
 
-  function register(){
-    if(registerData.password === registerData.cpassword){
+  function register() {
+    if (registerData.password === registerData.cpassword) {
       axios
-      .post('register',registerData)
-      .then(function(res){
-        console.log(res);
-      });
+        .post('/register', registerData)
+        .then(function (res) {
+          console.log(res);
+        });
     }
   }
 

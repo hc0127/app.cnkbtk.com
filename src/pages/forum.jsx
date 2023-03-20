@@ -25,6 +25,42 @@ export default function Forum(props) {
   const [credit, selectCredit] = useState(1000);
   const [monthly, setMonthly] = useState(true);
 
+  //api datas
+  const [posts_info, setPostsInfo] = useState({ today: 1, yesterday: 3, posts: 250, members: 450,new_member:'帅鹿齐安' });
+  const [top_posts, setTopPosts] = useState([
+    { tid: 1, title: "[MUMUZI工作室][强高][JK]" },
+    { tid: 2, title: "[MUMUZI工作室][TK][JK]" },
+    { tid: 3, title: "[MUMUZI工作室][TK][JK]" },
+    { tid: 4, title: "[MUMUZI工作室][TK][JK]" }
+  ]);
+  const [groups, setGroups] = useState(
+    [{
+      gid: 1, title: '公示栏', forums: [
+        {
+          fid: 2, title: '会员须知', topics: 8, posts: 8,
+          newest_post: { tid: 86, title: '发帖教程' }
+        }, {
+          fid: 3, title: '创作者须知', topics: 4, posts: 4,
+          newest_post: { tid: 56, title: '发帖教程' }
+        }]
+    }, {
+      gid: 4, title: '资源库', forums: [
+        {
+          fid: 5, title: '原创视频', topics: 8, posts: 8,
+          newest_post: { tid: 112, title: '[MUMUZI工作室] ...' }
+        }, {
+          fid: 6, title: '原创图集', topics: 4, posts: 4,
+          newest_post: { tid: 154, title: '实验帖：YT1593' }
+        }, {
+          fid: 7, title: '原创小说', topics: 8, posts: 8,
+          newest_post: { tid: 213, title: '[新月原创]魔幻类 ...' }
+        }, {
+          fid: 8, title: '教程', topics: 4, posts: 4,
+          newest_post: { tid: 354, title: '[鑫鑫绳艺工 ...' }
+        }]
+    }]
+  );
+
   useEffect(() => {
   }, []);
 
@@ -35,7 +71,9 @@ export default function Forum(props) {
       </Paper>
     );
   }
+
   const galleries = [1, 2];
+  const post_color = ['primary','blue','green','dark','dark','dark','dark','dark','dark','dark'];
 
   return (
     <>
@@ -60,7 +98,7 @@ export default function Forum(props) {
                       <img alt="today" src='images/bbs1.png' />
                     </Grid>
                     <Grid item>
-                      <Typography>今日:</Typography>
+                      <Typography>{"今日:" + posts_info.today}</Typography>
                     </Grid>
                   </Grid>
                   <Grid item container direciton={"row"} sm={3} md={3} xl={3} lg={3} alignItems="center" spacing={2}>
@@ -68,7 +106,7 @@ export default function Forum(props) {
                       <img alt="yesterday" src='images/bbs2.png' />
                     </Grid>
                     <Grid item>
-                      <Typography>昨日:</Typography>
+                      <Typography>{"昨日:" + posts_info.yesterday}</Typography>
                     </Grid>
                   </Grid>
                   <Grid item container direciton={"row"} sm={3} md={3} xl={3} lg={3} alignItems="center" spacing={2}>
@@ -76,7 +114,7 @@ export default function Forum(props) {
                       <img alt="posts" src='images/bbs3.png' />
                     </Grid>
                     <Grid item>
-                      <Typography>帖子:</Typography>
+                      <Typography>{"帖子:" + posts_info.posts}</Typography>
                     </Grid>
                   </Grid>
                   <Grid item container direciton={"row"} sm={3} md={3} xl={3} lg={3} alignItems="center" spacing={2}>
@@ -84,167 +122,70 @@ export default function Forum(props) {
                       <img alt="members" src='images/bbs4.png' />
                     </Grid>
                     <Grid item>
-                      <Typography>会员:</Typography>
+                      <Typography>{"会员:" + posts_info.members}</Typography>
                     </Grid>
                   </Grid>
                 </Grid>
                 <Grid item>
-                  <Typography>欢迎新会员:</Typography>
+                  <Typography>{"欢迎新会员:" + posts_info.new_member}</Typography>
                 </Grid>
               </Grid>
             </Paper>
           </Grid>
-          <Grid item container sm={12} md={12} xl={12} lg={12} mt={3} alignItems="flex-start" justifyContent="flex-start">
+          <Grid item container sm={12} md={12} xl={12} lg={12} mt={3} alignItems="flex-start" justifyContent="flex-start" spacing={2}>
             <Grid item container sm={9} md={9} xl={9} lg={9} spacing={2} direciton="column">
-              <Grid item sm={12} md={12} xl={12} lg={12}>
-                <NavLink className="to_category_group" to='/forum?gid=1'>{"notice board"}</NavLink >
-              </Grid>
-              <Grid item sm={4} md={4} xl={4} lg={4}>
-                <Card>
-                  <CardContent>
-                    <Grid item container direction={"column"} rowSpacing={2}>
-                      <Grid item container direction={"row"} alignItems="center" justifyContent="space-between" spacing={2}>
-                        <Grid item sm={4} md={4} xl={4} lg={4}>
-                          <img alt="document" src='images/document.png' width="50%" />
-                        </Grid>
-                        <Grid item container direction={"column"} sm={8} md={8} xl={8} lg={8}>
-                          <Grid item>
-                            <NavLink className="to_category" to='/forum/list/1'>{"Member Notice"}</NavLink >
-                          </Grid>
-                          <Grid item container direction={"row"} columnSpacing={2}>
-                            <Grid item>
-                              <Typography>Theme:</Typography>
-                            </Grid>
-                            <Grid item>
-                              <Typography>Posts:</Typography>
-                            </Grid>
-                          </Grid>
-                        </Grid>
+              {
+                groups?.map((group, gindex) => {
+                  return (
+                    <>
+                      <Grid item sm={12} md={12} xl={12} lg={12} key={gindex}>
+                        <NavLink className="to_category_group" to={'/forum?gid=' + group.gid}>{group.title}</NavLink >
                       </Grid>
-                      <Divider></Divider>
-                      <Grid item container direction={"row"} columnSpacing={2}>
-                        <Grid item>
-                          <NavLink className='to_post' to='/forum/view/254'>{"Member Posting Guide"}</NavLink >
-                        </Grid>
-                        <Grid item>
-                          <Typography>2022-12-31</Typography>
-                        </Grid>
-                      </Grid>
-                    </Grid>
-                  </CardContent>
-                </Card>
-              </Grid>
-              <Grid item sm={12} md={12} xl={12} lg={12}>
-                <NavLink to='/forum?gid=2'>{"notice board"}</NavLink >
-              </Grid>
-              <Grid item sm={4} md={4} xl={4} lg={4}>
-                <Card>
-                  <CardContent>
-                    <Grid item container direction={"column"} rowSpacing={2}>
-                      <Grid item container direction={"row"} alignItems="center" justifyContent="space-between" spacing={2}>
-                        <Grid item sm={4} md={4} xl={4} lg={4}>
-                          <img alt="document" src='images/document.png' width="50%" />
-                        </Grid>
-                        <Grid item container direction={"column"} sm={8} md={8} xl={8} lg={8}>
-                          <Grid item>
-                            Member Notice
-                          </Grid>
-                          <Grid item container direction={"row"} spacing={2}>
-                            <Grid item>
-                              <Typography>Theme:</Typography>
+                      {
+                        group?.forums.map((forum, findex) => {
+                          return (
+                            <Grid item sm={4} md={4} xl={4} lg={4} key={findex}>
+                              <Card>
+                                <CardContent>
+                                  <Grid item container direction={"column"} rowSpacing={2}>
+                                    <Grid item container direction={"row"} alignItems="center" justifyContent="space-between" spacing={2}>
+                                      <Grid item sm={4} md={4} xl={4} lg={4}>
+                                        <img alt="document" src='images/document.png' width="50%" />
+                                      </Grid>
+                                      <Grid item container direction={"column"} sm={8} md={8} xl={8} lg={8}>
+                                        <Grid item>
+                                          <NavLink className="to_category" to={'/forum/list/' + forum.fid}>{forum.title}</NavLink >
+                                        </Grid>
+                                        <Grid item container direction={"row"} columnSpacing={2}>
+                                          <Grid item>
+                                            <Typography>{"主题:" + forum.topics}</Typography>
+                                          </Grid>
+                                          <Grid item>
+                                            <Typography>{"帖数:" + forum.posts}</Typography>
+                                          </Grid>
+                                        </Grid>
+                                      </Grid>
+                                    </Grid>
+                                    <Divider></Divider>
+                                    <Grid item container direction={"row"} columnSpacing={2}>
+                                      <Grid item>
+                                        <NavLink className='to_post' to={'/forum/view/' + forum?.newest_post.tid}>{forum?.newest_post.title}</NavLink >
+                                      </Grid>
+                                      <Grid item>
+                                        <Typography>2022-12-31</Typography>
+                                      </Grid>
+                                    </Grid>
+                                  </Grid>
+                                </CardContent>
+                              </Card>
                             </Grid>
-                            <Grid item>
-                              <Typography>Posts:</Typography>
-                            </Grid>
-                          </Grid>
-                        </Grid>
-                      </Grid>
-                      <Divider></Divider>
-                      <Grid item container direction={"row"} spacing={2}>
-                        <Grid item>
-                          <Typography>Member Posting Guide</Typography>
-                        </Grid>
-                        <Grid item>
-                          <Typography>2022-12-31</Typography>
-                        </Grid>
-                      </Grid>
-                    </Grid>
-                  </CardContent>
-                </Card>
-              </Grid>
-              <Grid item sm={4} md={4} xl={4} lg={4}>
-                <Card>
-                  <CardContent>
-                    <Grid item container direction={"column"} rowSpacing={2}>
-                      <Grid item container direction={"row"} alignItems="center" justifyContent="space-between" spacing={2}>
-                        <Grid item sm={4} md={4} xl={4} lg={4}>
-                          <img alt="document" src='images/document.png' width="50%" />
-                        </Grid>
-                        <Grid item container direction={"column"} sm={8} md={8} xl={8} lg={8}>
-                          <Grid item>
-                            Member Notice
-                          </Grid>
-                          <Grid item container direction={"row"} spacing={2}>
-                            <Grid item>
-                              <Typography>Theme:</Typography>
-                            </Grid>
-                            <Grid item>
-                              <Typography>Posts:</Typography>
-                            </Grid>
-                          </Grid>
-                        </Grid>
-                      </Grid>
-                      <Divider></Divider>
-                      <Grid item container direction={"row"} spacing={2}>
-                        <Grid item>
-                          <Typography>Member Posting Guide</Typography>
-                        </Grid>
-                        <Grid item>
-                          <Typography>2022-12-31</Typography>
-                        </Grid>
-                      </Grid>
-                    </Grid>
-                  </CardContent>
-                </Card>
-              </Grid>
-              <Grid item sm={12} md={12} xl={12} lg={12}>
-                <NavLink to='/forum?gid=3'>{"notice board"}</NavLink >
-              </Grid>
-              <Grid item sm={4} md={4} xl={4} lg={4}>
-                <Card>
-                  <CardContent>
-                    <Grid item container direction={"column"} rowSpacing={2}>
-                      <Grid item container direction={"row"} alignItems="center" justifyContent="space-between" spacing={2}>
-                        <Grid item sm={4} md={4} xl={4} lg={4}>
-                          <img alt="today" src='images/document.png' width="50%" />
-                        </Grid>
-                        <Grid item container direction={"column"} sm={8} md={8} xl={8} lg={8}>
-                          <Grid item>
-                            Member Notice
-                          </Grid>
-                          <Grid item container direction={"row"} spacing={2}>
-                            <Grid item>
-                              <Typography>Theme:</Typography>
-                            </Grid>
-                            <Grid item>
-                              <Typography>Posts:</Typography>
-                            </Grid>
-                          </Grid>
-                        </Grid>
-                      </Grid>
-                      <Divider></Divider>
-                      <Grid item container direction={"row"} spacing={2}>
-                        <Grid item>
-                          <Typography>Member Posting Guide</Typography>
-                        </Grid>
-                        <Grid item>
-                          <Typography>2022-12-31</Typography>
-                        </Grid>
-                      </Grid>
-                    </Grid>
-                  </CardContent>
-                </Card>
-              </Grid>
+                          )
+                        })
+                      }
+                    </>
+                  )
+                })
+              }
             </Grid>
             <Grid item container sm={3} md={3} xl={3} lg={3} direciton="column">
               <Grid item sm={12} md={12} xl={12} lg={12}>
@@ -258,31 +199,22 @@ export default function Forum(props) {
                         <Typography>{monthly ? '每月' : '每周'}</Typography>
                       </Grid>
                       <Grid item >
-                        <Switch defaultChecked checked={monthly} onChange={(e) => setMonthly(e.target.checked)} />
+                        <Switch checked={monthly} onChange={(e) => setMonthly(e.target.checked)} />
                       </Grid>
                     </Grid>
                     <Grid item md={12}>
                       <Divider />
                       <List dense={true}>
-                        <ListItem>
-                          <ListItemIcon>
-                            <Chip label="1" color="primary" size="small" />
-                          </ListItemIcon>
-                          <NavLink to="/forum?mod=viewthread&tid=269">Single-line item</NavLink>
-
-                        </ListItem>
-                        <ListItem>
-                          <ListItemIcon>
-                            <Chip label="2" sx={{backgroundColor:'blue.main',color:'white.main'}} size="small" />
-                          </ListItemIcon>
-                          <NavLink to="/forum?mod=viewthread&tid=270">Single-line item</NavLink>
-                        </ListItem>
-                        <ListItem>
-                          <ListItemIcon>
-                            <Chip label="3" sx={{backgroundColor:'green.main',color:'white.main'}} size="small" />
-                          </ListItemIcon>
-                          <NavLink to="/forum?mod=viewthread&tid=284">Single-line item</NavLink>
-                        </ListItem>
+                        {
+                          top_posts?.map((top_post, index) => {
+                            return <ListItem key={index}>
+                              <ListItemIcon>
+                                <Chip label={index+1} sx={{backgroundColor:post_color[index]+".main", color:'white.main'}} size="small" />
+                              </ListItemIcon>
+                              <NavLink to={"/forum/view/" + top_post.tid}>{top_post.title}</NavLink>
+                            </ListItem>
+                          })
+                        }
                       </List>
                     </Grid>
                   </Grid>

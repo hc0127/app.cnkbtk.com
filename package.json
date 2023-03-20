@@ -6,6 +6,7 @@
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
     "@mui/icons-material": "^5.11.11",
+    "@mui/lab": "^5.0.0-alpha.123",
     "@mui/material": "^5.11.13",
     "@mui/styled-engine-sc": "^5.11.11",
     "@testing-library/jest-dom": "^5.16.5",
@@ -20,11 +21,15 @@
     "react-dom": "^18.2.0",
     "react-google-recaptcha": "^2.1.0",
     "react-images-uploading": "^3.1.7",
+    "react-input-verification-code": "^1.0.2",
     "react-material-ui-carousel": "^3.4.2",
+    "react-particles": "^2.9.3",
     "react-router-dom": "^6.3.0",
     "react-router-redux": "^4.0.8",
     "react-scripts": "5.0.1",
     "styled-components": "^5.3.9",
+    "tsparticles": "^2.9.3",
+    "tsparticles-plugin-absorbers": "^2.9.3",
     "web-vitals": "^3.1.1"
   },
   "scripts": {

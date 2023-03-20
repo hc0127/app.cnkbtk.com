@@ -3,12 +3,19 @@ import "./App.css";
 import React from "react";
 import { Route, Routes } from "react-router-dom";
 
+import Navbar from "./layout/navbar";
 import Register from "./pages/register";
+import Confirm from "./pages/confirm";
 import Profile from "./pages/profile";
 import Forum from "./pages/forum";
 import ForumList from "./pages/forumlist";
 import ForumView from "./pages/forumview";
-import Navbar from "./layout/navbar";
+
+import AdminCategory from "./pages/admin/category";
+import AdminTag from "./pages/admin/tag";
+import AdminUser from "./pages/admin/user";
+import AdminPost from "./pages/admin/post";
+
 import { createBrowserHistory } from "history";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { blue, yellow, green,grey,red } from "@mui/material/colors";
@@ -63,6 +70,7 @@ function App() {
       <Routes history={history}>
         <Route element={<Navbar />}>
           <Route path="/register" element={<Register />} />
+          <Route path="/confirm" element={<Confirm />} />
           <Route path="/" element={<Forum />} />
           <Route path="/forum" element={<Forum />} />
           <Route path="/forum/:gid" element={<Forum />} />
@@ -70,10 +78,10 @@ function App() {
           <Route path="/forum/view/:tid" element={<ForumView />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/admin" element={<Profile />} />
-          <Route path="/admin/users" element={<Profile />} />
-          <Route path="/admin/tags" element={<Profile />} />
-          <Route path="/admin/categorys" element={<Profile />} />
-          <Route path="/admin/posts" element={<Profile />} />
+          <Route path="/admin/user" element={<AdminUser />} />
+          <Route path="/admin/tag" element={<AdminTag />} />
+          <Route path="/admin/category" element={<AdminCategory />} />
+          <Route path="/admin/post" element={<AdminPost />} />
         </Route>
       </Routes>
     </ThemeProvider>

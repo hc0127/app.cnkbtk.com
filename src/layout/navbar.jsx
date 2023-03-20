@@ -7,8 +7,8 @@ import {
   Grid,
   Divider,
   BottomNavigation,
-  Typography,
   TextField,
+  Typography,
 } from '@mui/material';
 
 import {
@@ -73,9 +73,7 @@ export default function Navbar() {
         <Outlet />
       </Container>
       <Divider className='mt-3' />
-      <BottomNavigation className='mt-3'>
-        <Typography> © 2022 Comsenz Inc. Powered by Discuz!</Typography>
-      </BottomNavigation>
+      <Typography className='text-center p-3' label=" © 2022 Comsenz Inc. Powered by Discuz!">© 2022 Comsenz Inc. Powered by Discuz!</Typography>
       
       <MDBModal show={isLoginModalOpen} setShow={setLoginModalOpen} tabIndex='-1'>
         <MDBModalDialog>
