@@ -4,13 +4,23 @@ import {
   Paper,
   Typography,
   Button,
-  TextField
+  TextField,
+  FormControl,
+  InputLabel,
+  Input,
+  InputAdornment,
+  IconButton
 } from '@mui/material';
+import {
+  Visibility,
+  VisibilityOff
+} from '@mui/icons-material';
 import ReCAPTCHA from "react-google-recaptcha";
 import axios from '../services/axios'
 
 export default function Register(props) {
   const [registerData, setRegisterData] = useState({});
+  const [showPassword, setShowPassword] = React.useState(false);
 
   useEffect(() => {
   }, []);
@@ -18,6 +28,9 @@ export default function Register(props) {
   function onChange(value) {
     console.log("Captcha value:", value);
   }
+
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
+  const handleMouseDownPassword = (event) => event.preventDefault();
 
   function register() {
     if (registerData.password === registerData.cpassword) {
@@ -39,13 +52,31 @@ export default function Register(props) {
           <Paper className='p-5' elevation={6}>
             <Grid container direction="row" alignItems="center" justifyContent="center">
               <Grid item container direction="column" alignItems="center" justifyContent="center" spacing={2}>
-                <TextField value={registerData.user} onChange={(e) => setRegisterData({ ...registerData, user: e.target.value })} label="username" fullWidth variant="standard" />
-                <TextField value={registerData.password} onChange={(e) => setRegisterData({ ...registerData, password: e.target.value })} type="password" fullWidth label="password" variant="standard" />
-                <TextField value={registerData.cpassword} onChange={(e) => setRegisterData({ ...registerData, cpassword: e.target.value })} type="password" fullWidth label="confirm password" variant="standard" />
-                <TextField value={registerData.email} onChange={(e) => setRegisterData({ ...registerData, email: e.target.value })} label="email" fullWidth variant="standard" />
-                <Grid item>
+                <TextField value={registerData.email} onChange={(e) => setRegisterData({ ...registerData, email: e.target.value })} label="邮箱" fullWidth variant="standard" />
+                <FormControl fullWidth variant="filled">
+                  <InputLabel htmlFor="password">密码</InputLabel>
+                  <Input
+                    id="password"
+                    value={registerData.password}
+                    type={showPassword ? 'text' : 'password'}
+                    onChange={(e) => setRegisterData({ ...registerData, password: e.target.value })}
+                    endAdornment={
+                      <InputAdornment position="end">
+                        <IconButton
+                          aria-label="toggle password visibility"
+                          onClick={handleClickShowPassword}
+                          onMouseDown={handleMouseDownPassword}
+                          edge="end"
+                        >
+                          {showPassword ? <VisibilityOff /> : <Visibility />}
+                        </IconButton>
+                      </InputAdornment>
+                    }
+                  />
+                  </FormControl>
+                {/* <Grid item>
                   <ReCAPTCHA sitekey="Your client site key" onChange={onChange} />
-                </Grid>
+                </Grid> */}
                 <Grid item>
                   <Button variant="outlined" onClick={register}>Sign up</Button>
                 </Grid>

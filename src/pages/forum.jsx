@@ -38,25 +38,25 @@ export default function Forum(props) {
       gid: 1, title: '公示栏', forums: [
         {
           fid: 2, title: '会员须知', topics: 8, posts: 8,
-          newest_post: { tid: 86, title: '发帖教程' }
+          newest_post: { tid: 86, title: '发帖教程', time:'2023-03-11' }
         }, {
           fid: 3, title: '创作者须知', topics: 4, posts: 4,
-          newest_post: { tid: 56, title: '发帖教程' }
+          newest_post: { tid: 56, title: '发帖教程', time:'2023-03-11' }
         }]
     }, {
       gid: 4, title: '资源库', forums: [
         {
           fid: 5, title: '原创视频', topics: 8, posts: 8,
-          newest_post: { tid: 112, title: '[MUMUZI工作室] ...' }
+          newest_post: { tid: 112, title: '[MUMUZI工作室] ...', time:'2023-03-11' }
         }, {
           fid: 6, title: '原创图集', topics: 4, posts: 4,
-          newest_post: { tid: 154, title: '实验帖：YT1593' }
+          newest_post: { tid: 154, title: '实验帖：YT1593', time:'2023-03-11' }
         }, {
           fid: 7, title: '原创小说', topics: 8, posts: 8,
-          newest_post: { tid: 213, title: '[新月原创]魔幻类 ...' }
+          newest_post: { tid: 213, title: '[新月原创]魔幻类 ...', time:'2023-03-11' }
         }, {
           fid: 8, title: '教程', topics: 4, posts: 4,
-          newest_post: { tid: 354, title: '[鑫鑫绳艺工 ...' }
+          newest_post: { tid: 354, title: '[鑫鑫绳艺工 ...', time:'2023-03-11' }
         }]
     }]
   );
@@ -148,9 +148,9 @@ export default function Forum(props) {
                               <Card>
                                 <CardContent>
                                   <Grid item container direction={"column"} rowSpacing={2}>
-                                    <Grid item container direction={"row"} alignItems="center" justifyContent="space-between" spacing={2}>
-                                      <Grid item sm={4} md={4} xl={4} lg={4}>
-                                        <img alt="document" src='images/document.png' width="50%" />
+                                    <Grid item container direction={"row"} alignItems="flex-start" justifyContent="flex-start">
+                                      <Grid item sm={3} md={3} xl={3} lg={3}>
+                                        <img alt="document" src='images/document.png' width="80%" />
                                       </Grid>
                                       <Grid item container direction={"column"} sm={8} md={8} xl={8} lg={8}>
                                         <Grid item>
@@ -172,7 +172,7 @@ export default function Forum(props) {
                                         <NavLink className='to_post' to={'/forum/view/' + forum?.newest_post.tid}>{forum?.newest_post.title}</NavLink >
                                       </Grid>
                                       <Grid item>
-                                        <Typography>2022-12-31</Typography>
+                                        <Typography>{forum?.newest_post.time}</Typography>
                                       </Grid>
                                     </Grid>
                                   </Grid>

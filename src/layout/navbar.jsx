@@ -72,8 +72,13 @@ export default function Navbar() {
       <Container>
         <Outlet />
       </Container>
-      <Divider className='mt-3' />
-      <Typography className='text-center p-3' label=" © 2022 Comsenz Inc. Powered by Discuz!">© 2022 Comsenz Inc. Powered by Discuz!</Typography>
+      <div className='tmp_footer'>
+
+      </div>
+      <Grid className="footer">
+        <Divider className='mt-3' />
+        <Typography className='text-center p-3' label=" © 2022 Comsenz Inc. Powered by Discuz!">© 2022 Comsenz Inc. Powered by Discuz!</Typography>
+      </Grid>
       
       <MDBModal show={isLoginModalOpen} setShow={setLoginModalOpen} tabIndex='-1'>
         <MDBModalDialog>

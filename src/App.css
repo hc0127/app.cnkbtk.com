@@ -43,3 +43,14 @@ a:not(.to_post){
 .to_page:hover, .to_category:hover{
   color:red !important;
 }
+
+.tmp_footer{
+  height: 80px;
+}
+
+.footer{
+  width: 100%;
+  position: fixed;
+  bottom:0px;
+  background: white;
+}
