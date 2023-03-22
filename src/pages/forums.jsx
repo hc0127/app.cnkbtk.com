@@ -78,7 +78,7 @@ export default function Forums(props) {
   return (
     <>
       <Grid container>
-        <Grid item container direction={"row"} mt={2} spacing={2}>
+        <Grid item container direction={"row"} mt={2} spacing={2} alignItems="center">
           <Grid item sm={6} md={6} xl={6} lg={6}>
             <Carousel>
               {
@@ -86,8 +86,10 @@ export default function Forums(props) {
               }
             </Carousel>
           </Grid>
-          <Grid item sm={6} md={6} xl={6} lg={6}>
-            <img alt="gallery" src='images/104521jm1mstocwoitcwis.png' width={"100%"} />
+          <Grid item sm={6} md={6} xl={6} lg={6} >
+            <Paper elevation={3}>
+              <img alt="gallery" src='images/104521jm1mstocwoitcwis.png' width={"100%"} />
+            </Paper>
           </Grid>
           <Grid item sm={12} md={12} xl={12} lg={12} mt={3}>
             <Paper className="p-3" elevation={3}>

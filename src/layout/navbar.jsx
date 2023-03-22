@@ -6,7 +6,6 @@ import {
   Container,
   Grid,
   Divider,
-  BottomNavigation,
   TextField,
   Typography,
 } from '@mui/material';

@@ -14,14 +14,30 @@ import { TreeView, TreeItem } from '@mui/lab';
 import axios from '../../services/axios'
 
 export default function AdminCategory(props) {
-    const [selected, setSelected] = React.useState([]);
+    const [selectedItem, setSelectedItem] = useState([]);
+
+    const treeItemSelect = (event, nodeIds) => {
+        setSelectedItem(nodeIds);
+    };
 
     useEffect(() => {
     }, []);
 
-    const handleSelect = (event, nodeIds) => {
-        setSelected(nodeIds);
-    };
+    const remove = () =>{
+        axios.get('/category/remove',{fid:1},function(res){
+            console.log(res);
+        });
+    }
+    const edit = () =>{
+        axios.get('/category/edit',{fid:1,content:'modified text'},function(res){
+            console.log(res);
+        });
+    }
+
+    const add = () =>{
+
+    }
+
 
     return (
         <Grid container alignItems="center" justifyContent="center" mt={2}>
@@ -35,8 +51,8 @@ export default function AdminCategory(props) {
                             aria-label="file system navigator"
                             defaultCollapseIcon={<ExpandMore />}
                             defaultExpandIcon={<ChevronRight />}
-                            onNodeSelect={handleSelect}
-                            selected={selected}
+                            onNodeSelect={treeItemSelect}
+                            selected={selectedItem}
                             sx={{ overflowY: 'auto' }}
                         >
                             <TreeItem nodeId="1" label="公示栏">
@@ -71,13 +87,13 @@ export default function AdminCategory(props) {
                 </Grid>
                 <Grid item container direction="column" md={3} spacing={2}>
                     <Grid item>
-                        <Button variant='contained' fullWidth>add</Button>
+                        <Button variant='contained' fullWidth onClick={add}>add</Button>
                     </Grid>
                     <Grid item>
-                        <Button variant='contained' fullWidth>edit</Button>
+                        <Button variant='contained' fullWidth onClick={edit}>edit</Button>
                     </Grid>
                     <Grid item>
-                        <Button variant='contained' fullWidth>remove</Button>
+                        <Button variant='contained' fullWidth onClick={remove}>remove</Button>
                     </Grid>
                 </Grid>
             </Grid>

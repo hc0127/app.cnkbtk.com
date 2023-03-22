@@ -13,7 +13,7 @@ import {
     Avatar,
     Checkbox,
     ButtonGroup,
-    Button
+    Button,
 } from '@mui/material';
 import {
     useParams
@@ -25,6 +25,7 @@ import {
 } from '@mui/icons-material';
 import DataTable from "react-data-table-component";
 import { NavLink } from 'react-router-dom';
+import axios from 'axios';
 
 export default function Posts(props) {
     const params = useParams();
@@ -88,141 +89,132 @@ export default function Posts(props) {
             wrap: true,
             selector: (row) => row.finalpost,
         },
-        {
-            name: "行动",
-            center: true,
-            wrap: true,
-            cell: (d) => [
-                <ButtonGroup variant="contained">
-                    <Button size='small' color='secondary'>Delete</Button>
-                    <Button size='small'>Move</Button>
-                </ButtonGroup>
-            ]
-        },
     ];
 
     return (
-        <Grid container mt={2} spacing={2}>
-            <Grid item>
-                <Breadcrumbs aria-label="breadcrumb" separator="›">
-                    <NavLink to='/'><Home /></NavLink>
-                    <NavLink to='/forums'>论坛</NavLink>
-                    <NavLink to={'/forums?gid=' + forum_info.gid}>{forum_info.gtitle}</NavLink>
-                    <NavLink to={'/posts/' + forum_info.fid}>{forum_info.ftitle}</NavLink>
-                </Breadcrumbs>
-            </Grid>
-            <Grid item container direction="row" alignItems="flex-start" justifyContent="flex-start">
-                <Grid item container md={9} direction="column" alignItems="flex-start" justifyContent="flex-start" spacing={2} p={1}>
-                    <Grid item md={12} sx={{ width: '100%' }}>
-                        <Paper className='p-3' elevation={2}>
-                            <Grid container direction="row" justifyContent="space-between" columns={2}>
-                                <Grid item container direction="row" alignItems="flex-start" justifyContent="flex-start" md={9} spacing={1}>
-                                    <Grid item>
-                                        <img src='../../images/document.png' width='100%' />
+        <>
+            <Grid container mt={2} spacing={2}>
+                <Grid item>
+                    <Breadcrumbs aria-label="breadcrumb" separator="›">
+                        <NavLink to='/'><Home /></NavLink>
+                        <NavLink to='/forums'>论坛</NavLink>
+                        <NavLink to={'/forums?gid=' + forum_info.gid}>{forum_info.gtitle}</NavLink>
+                        <NavLink to={'/posts/' + forum_info.fid}>{forum_info.ftitle}</NavLink>
+                    </Breadcrumbs>
+                </Grid>
+                <Grid item container direction="row" alignItems="flex-start" justifyContent="flex-start">
+                    <Grid item container md={9} direction="column" alignItems="flex-start" justifyContent="flex-start" spacing={2} p={1}>
+                        <Grid item md={12} sx={{ width: '100%' }}>
+                            <Paper className='p-3' elevation={2}>
+                                <Grid container direction="row" justifyContent="space-between" columns={2}>
+                                    <Grid item container direction="row" alignItems="flex-start" justifyContent="flex-start" md={9} spacing={1}>
+                                        <Grid item>
+                                            <img src='../../images/document.png' width='100%' />
+                                        </Grid>
+                                        <Grid item>
+                                            <NavLink to={'/posts/' + forum_info.fid}>{forum_info.ftitle}</NavLink>
+                                        </Grid>
+                                        <Grid item>
+                                            <Typography variant='span'>今日:</Typography><Typography variant='span' color='primary'>1</Typography>
+                                        </Grid>
+                                        <Grid item>
+                                            <Typography variant='span'>主题:</Typography> <Typography variant='span' color='primary'>1</Typography>
+                                        </Grid>
+                                        <Grid item>
+                                            <Typography variant='span' color='primary'>收藏本版</Typography>
+                                        </Grid>
+                                        <Grid item>
+                                            <AccessTime />
+                                            <Typography variant='span'>存档</Typography>
+                                        </Grid>
+                                        <Grid item>
+                                            <Typography variant='span'>回收站</Typography>
+                                        </Grid>
+                                        <Grid item>
+                                            <Typography variant='span'>管理面板</Typography>
+                                        </Grid>
                                     </Grid>
                                     <Grid item>
-                                        <NavLink to={'/posts/' + forum_info.fid}>{forum_info.ftitle}</NavLink>
-                                    </Grid>
-                                    <Grid item>
-                                        <Typography variant='span'>今日:</Typography><Typography variant='span' color='primary'>1</Typography>
-                                    </Grid>
-                                    <Grid item>
-                                        <Typography variant='span'>主题:</Typography> <Typography variant='span' color='primary'>1</Typography>
-                                    </Grid>
-                                    <Grid item>
-                                        <Typography variant='span' color='primary'>收藏本版</Typography>
-                                    </Grid>
-                                    <Grid item>
-                                        <AccessTime />
-                                        <Typography variant='span'>存档</Typography>
-                                    </Grid>
-                                    <Grid item>
-                                        <Typography variant='span'>回收站</Typography>
-                                    </Grid>
-                                    <Grid item>
-                                        <Typography variant='span'>管理面板</Typography>
+                                        <Button color='primary' variant='contained'><NavLink className="post_create" to={'/post/create/' + params.fid}>发表帖子</NavLink></Button>
                                     </Grid>
                                 </Grid>
-                                <Grid item>
-                                    <Button color='primary' variant='contained'><NavLink className="post_create" to={'/post/create/' + params.fid}>发表帖子</NavLink></Button>
-                                </Grid>
-                            </Grid>
-                        </Paper>
+                            </Paper>
+                        </Grid>
+                        <Grid item sx={{ width: '100%' }}>
+                            <DataTable
+                                columns={forumColumns}
+                                data={posts}
+                                fixedHeader
+                                defaultPageSize={100}
+                                pagination
+                            />
+                        </Grid>
                     </Grid>
-                    <Grid item sx={{ width: '100%' }}>
-                        <DataTable
-                            columns={forumColumns}
-                            data={posts}
-                            fixedHeader
-                            defaultPageSize={100}
-                            pagination
-                        />
+                    <Grid item container md={3} direction="column" spacing={2} p={1}>
+                        <Grid item>
+                            <Card>
+                                <CardContent sx={{ backgroundColor: 'grey' }}>
+                                    <NavLink to={'/forums' + forum_info?.gid}>{"所属分类:" + forum_info?.gtitle}</NavLink>
+                                </CardContent>
+                                <CardActions>
+                                    {
+                                        forum_info?.group_forums.map((forum, index) => {
+                                            return <NavLink className='m-2' to={'/posts/' + forum.fid}>{forum.title}</NavLink>
+                                        })
+                                    }
+                                </CardActions>
+                            </Card>
+                        </Grid>
+                        <Grid item>
+                            <Accordion>
+                                <AccordionSummary
+                                    expandIcon={<ExpandMore />}
+                                    aria-controls="panel1a-content"
+                                    id="panel1a-header"
+                                >
+                                    <Typography>正在浏览此版块的会员(4)</Typography>
+                                </AccordionSummary>
+                                <AccordionDetails>
+                                    <Grid container direction="row" alignItems="flex-start" justifyContent="flex-start" spacing={1}>
+                                        <Grid item container direction="column" alignItems="flex-start" justifyContent="flex-start" md={4}>
+                                            <Grid item>
+                                                <Avatar />
+                                            </Grid>
+                                            <Grid item>
+                                                <Typography>Admin</Typography>
+                                            </Grid>
+                                        </Grid>
+                                        <Grid item container direction="column" alignItems="flex-start" justifyContent="flex-start" md={4}>
+                                            <Grid item>
+                                                <Avatar />
+                                            </Grid>
+                                            <Grid item>
+                                                <Typography>Admin</Typography>
+                                            </Grid>
+                                        </Grid>
+                                        <Grid item container direction="column" alignItems="flex-start" justifyContent="flex-start" md={4}>
+                                            <Grid item>
+                                                <Avatar />
+                                            </Grid>
+                                            <Grid item>
+                                                <Typography>Admin</Typography>
+                                            </Grid>
+                                        </Grid>
+                                        <Grid item container direction="column" alignItems="flex-start" justifyContent="flex-start" md={4}>
+                                            <Grid item>
+                                                <Avatar />
+                                            </Grid>
+                                            <Grid item>
+                                                <Typography>Admin</Typography>
+                                            </Grid>
+                                        </Grid>
+                                    </Grid>
+                                </AccordionDetails>
+                            </Accordion>
+                        </Grid>
                     </Grid>
                 </Grid>
-                <Grid item container md={3} direction="column" spacing={2} p={1}>
-                    <Grid item>
-                        <Card>
-                            <CardContent sx={{ backgroundColor: 'grey' }}>
-                                <NavLink to={'/forums' + forum_info?.gid}>{"所属分类:" + forum_info?.gtitle}</NavLink>
-                            </CardContent>
-                            <CardActions>
-                                {
-                                    forum_info?.group_forums.map((forum, index) => {
-                                        return <NavLink className='m-2' to={'/posts/' + forum.fid}>{forum.title}</NavLink>
-                                    })
-                                }
-                            </CardActions>
-                        </Card>
-                    </Grid>
-                    <Grid item>
-                        <Accordion>
-                            <AccordionSummary
-                                expandIcon={<ExpandMore />}
-                                aria-controls="panel1a-content"
-                                id="panel1a-header"
-                            >
-                                <Typography>正在浏览此版块的会员(4)</Typography>
-                            </AccordionSummary>
-                            <AccordionDetails>
-                                <Grid container direction="row" alignItems="flex-start" justifyContent="flex-start" spacing={1}>
-                                    <Grid item container direction="column" alignItems="flex-start" justifyContent="flex-start" md={4}>
-                                        <Grid item>
-                                            <Avatar />
-                                        </Grid>
-                                        <Grid item>
-                                            <Typography>Admin</Typography>
-                                        </Grid>
-                                    </Grid>
-                                    <Grid item container direction="column" alignItems="flex-start" justifyContent="flex-start" md={4}>
-                                        <Grid item>
-                                            <Avatar />
-                                        </Grid>
-                                        <Grid item>
-                                            <Typography>Admin</Typography>
-                                        </Grid>
-                                    </Grid>
-                                    <Grid item container direction="column" alignItems="flex-start" justifyContent="flex-start" md={4}>
-                                        <Grid item>
-                                            <Avatar />
-                                        </Grid>
-                                        <Grid item>
-                                            <Typography>Admin</Typography>
-                                        </Grid>
-                                    </Grid>
-                                    <Grid item container direction="column" alignItems="flex-start" justifyContent="flex-start" md={4}>
-                                        <Grid item>
-                                            <Avatar />
-                                        </Grid>
-                                        <Grid item>
-                                            <Typography>Admin</Typography>
-                                        </Grid>
-                                    </Grid>
-                                </Grid>
-                            </AccordionDetails>
-                        </Accordion>
-                    </Grid>
-                </Grid>
             </Grid>
-        </Grid>
+        </>
     );
 }

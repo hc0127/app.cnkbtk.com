@@ -25,6 +25,8 @@ export default function PostView(props) {
         gid: 1, gtitle: '公示',
         fid: 1, ftitle: '会员须知',
         tid: 240,
+        next_tid:243,
+        prev_tid:233,
         title: '警告！降低音量～太大声被投诉～这样的TK你见过？',
         poster: 'admin',
         time: '2022-07-21',
@@ -63,10 +65,14 @@ export default function PostView(props) {
                                 <IconButton children={<PrintOutlined />} />
                             </Grid>
                             <Grid item md={2}>
-                                <IconButton children={<ArrowCircleLeftOutlined />} />
+                                <NavLink to={"/post/view/" + post_info.prev_tid}>
+                                    <IconButton children={<ArrowCircleLeftOutlined />} />
+                                </NavLink>
                             </Grid>
                             <Grid item md={2}>
-                                <IconButton children={<ArrowCircleRightOutlined />} />
+                                <NavLink to={"/post/view/" + post_info.next_tid}>
+                                    <IconButton children={<ArrowCircleRightOutlined />} />
+                                </NavLink>
                             </Grid>
                             <Grid item container direction="column" alignItems="center" md={3}>
                                 <Grid item>

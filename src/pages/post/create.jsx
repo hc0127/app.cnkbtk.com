@@ -200,7 +200,7 @@ export default function PostCreate(props) {
                                                 imageList.map((image, index) => {
                                                     return <Grid item container key={index} direction="column" spacing={1} alignItems="center" justifyContent="center" md={6}>
                                                         <Grid item>
-                                                            <img src={image['data_url']} alt='image' width="100" />
+                                                            <img src={image['data_url']} alt='image' width="100%" />
                                                         </Grid>
                                                         <Grid item container direction="row" spacing={1} alignItems="center" justifyContent="center">
                                                             <Grid item>
