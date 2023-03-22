@@ -21,12 +21,12 @@ import Carousel from 'react-material-ui-carousel';
 import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 
-export default function Forum(props) {
+export default function Forums(props) {
   const [credit, selectCredit] = useState(1000);
   const [monthly, setMonthly] = useState(true);
 
   //api datas
-  const [posts_info, setPostsInfo] = useState({ today: 1, yesterday: 3, posts: 250, members: 450,new_member:'帅鹿齐安' });
+  const [posts_info, setPostsInfo] = useState({ today: 1, yesterday: 3, posts: 250, members: 450, new_member: '帅鹿齐安' });
   const [top_posts, setTopPosts] = useState([
     { tid: 1, title: "[MUMUZI工作室][强高][JK]" },
     { tid: 2, title: "[MUMUZI工作室][TK][JK]" },
@@ -38,25 +38,25 @@ export default function Forum(props) {
       gid: 1, title: '公示栏', forums: [
         {
           fid: 2, title: '会员须知', topics: 8, posts: 8,
-          newest_post: { tid: 86, title: '发帖教程', time:'2023-03-11' }
+          newest_post: { tid: 86, title: '发帖教程', time: '2023-03-11' }
         }, {
           fid: 3, title: '创作者须知', topics: 4, posts: 4,
-          newest_post: { tid: 56, title: '发帖教程', time:'2023-03-11' }
+          newest_post: { tid: 56, title: '发帖教程', time: '2023-03-11' }
         }]
     }, {
       gid: 4, title: '资源库', forums: [
         {
           fid: 5, title: '原创视频', topics: 8, posts: 8,
-          newest_post: { tid: 112, title: '[MUMUZI工作室] ...', time:'2023-03-11' }
+          newest_post: { tid: 112, title: '[MUMUZI工作室] ...', time: '2023-03-11' }
         }, {
           fid: 6, title: '原创图集', topics: 4, posts: 4,
-          newest_post: { tid: 154, title: '实验帖：YT1593', time:'2023-03-11' }
+          newest_post: { tid: 154, title: '实验帖：YT1593', time: '2023-03-11' }
         }, {
           fid: 7, title: '原创小说', topics: 8, posts: 8,
-          newest_post: { tid: 213, title: '[新月原创]魔幻类 ...', time:'2023-03-11' }
+          newest_post: { tid: 213, title: '[新月原创]魔幻类 ...', time: '2023-03-11' }
         }, {
           fid: 8, title: '教程', topics: 4, posts: 4,
-          newest_post: { tid: 354, title: '[鑫鑫绳艺工 ...', time:'2023-03-11' }
+          newest_post: { tid: 354, title: '[鑫鑫绳艺工 ...', time: '2023-03-11' }
         }]
     }]
   );
@@ -73,7 +73,7 @@ export default function Forum(props) {
   }
 
   const galleries = [1, 2];
-  const post_color = ['primary','blue','green','dark','dark','dark','dark','dark','dark','dark'];
+  const post_color = ['primary', 'blue', 'green', 'dark', 'dark', 'dark', 'dark', 'dark', 'dark', 'dark'];
 
   return (
     <>
@@ -139,7 +139,7 @@ export default function Forum(props) {
                   return (
                     <>
                       <Grid item sm={12} md={12} xl={12} lg={12} key={gindex}>
-                        <NavLink className="to_category_group" to={'/forum?gid=' + group.gid}>{group.title}</NavLink >
+                        <NavLink className="to_category_group" to={'/forums?gid=' + group.gid}>{group.title}</NavLink >
                       </Grid>
                       {
                         group?.forums.map((forum, findex) => {
@@ -154,7 +154,7 @@ export default function Forum(props) {
                                       </Grid>
                                       <Grid item container direction={"column"} sm={8} md={8} xl={8} lg={8}>
                                         <Grid item>
-                                          <NavLink className="to_category" to={'/forum/list/' + forum.fid}>{forum.title}</NavLink >
+                                          <NavLink className="to_category" to={'/posts/' + forum.fid}>{forum.title}</NavLink >
                                         </Grid>
                                         <Grid item container direction={"row"} columnSpacing={2}>
                                           <Grid item>
@@ -169,7 +169,7 @@ export default function Forum(props) {
                                     <Divider></Divider>
                                     <Grid item container direction={"row"} columnSpacing={2}>
                                       <Grid item>
-                                        <NavLink className='to_post' to={'/forum/view/' + forum?.newest_post.tid}>{forum?.newest_post.title}</NavLink >
+                                        <NavLink className='to_post' to={'/post/view/' + forum?.newest_post.tid}>{forum?.newest_post.title}</NavLink >
                                       </Grid>
                                       <Grid item>
                                         <Typography>{forum?.newest_post.time}</Typography>
@@ -209,9 +209,9 @@ export default function Forum(props) {
                           top_posts?.map((top_post, index) => {
                             return <ListItem key={index}>
                               <ListItemIcon>
-                                <Chip label={index+1} sx={{backgroundColor:post_color[index]+".main", color:'white.main'}} size="small" />
+                                <Chip label={index + 1} sx={{ backgroundColor: post_color[index] + ".main", color: 'white.main' }} size="small" />
                               </ListItemIcon>
-                              <NavLink to={"/forum/view/" + top_post.tid}>{top_post.title}</NavLink>
+                              <NavLink to={"/post/view/" + top_post.tid}>{top_post.title}</NavLink>
                             </ListItem>
                           })
                         }

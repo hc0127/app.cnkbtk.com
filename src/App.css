@@ -1,6 +1,6 @@
 @import url("https://fonts.google.com");
 
-body *{
+body * {
   font-family: sans-serif;
 }
 
@@ -36,21 +36,26 @@ h1 {
 }
 
 /* a links style */
-a:not(.to_post){
-  color:black !important;
+a:not(.to_post) {
+  color: black !important;
 }
 
-.to_page:hover, .to_category:hover{
-  color:red !important;
+a.post_create {
+  color: white !important;
 }
 
-.tmp_footer{
+.to_page:hover,
+.to_category:hover {
+  color: red !important;
+}
+
+.tmp_footer {
   height: 80px;
 }
 
-.footer{
+.footer {
   width: 100%;
   position: fixed;
-  bottom:0px;
+  bottom: 0px;
   background: white;
 }

@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React, { useState } from 'react';
 import {
   AppBar,
   Box,
@@ -12,13 +12,13 @@ import {
 } from '@mui/material';
 
 import {
-    MDBModal,
-    MDBModalDialog,
-    MDBModalContent,
-    MDBModalHeader,
-    MDBModalTitle,
-    MDBModalBody,
-    MDBModalFooter,
+  MDBModal,
+  MDBModalDialog,
+  MDBModalContent,
+  MDBModalHeader,
+  MDBModalTitle,
+  MDBModalBody,
+  MDBModalFooter,
 } from 'mdb-react-ui-kit';
 
 import { Outlet, NavLink } from 'react-router-dom';
@@ -30,13 +30,13 @@ export default function Navbar() {
   const [login_password, setLoginPassword] = useState('');
 
   const loginModalToggle = () => setLoginModalOpen(!isLoginModalOpen);
-  
-  const login = () =>{
-    axios
-    .post('login',{email:login_email,password:login_password})
-    .then(function(res){
 
-    });
+  const login = () => {
+    axios
+      .post('login', { email: login_email, password: login_password })
+      .then(function (res) {
+
+      });
   }
 
   return (
@@ -54,7 +54,7 @@ export default function Navbar() {
                   />
                 </Grid>
                 <Grid item>
-                  <Button size="large" sx={{ color: 'red' }}><NavLink className="to_page" to="/forum">论坛</NavLink></Button>
+                  <Button size="large" sx={{ color: 'red' }}><NavLink className="to_page" to="/forums">论坛</NavLink></Button>
                 </Grid>
               </Grid>
               <Grid item container direction={"row"} xs={6} md={6} xl={6} lg={6} justifyContent="flex-end" alignItems="center">
@@ -62,7 +62,7 @@ export default function Navbar() {
                   <Button onClick={() => setLoginModalOpen(true)} color='dark'>登录</Button>
                 </Grid>
                 <Grid item>
-                  <Button color='dark' sx={{color:'red !important'}}><NavLink to="/register">注册</NavLink></Button>
+                  <Button color='dark' sx={{ color: 'red !important' }}><NavLink to="/register">注册</NavLink></Button>
                 </Grid>
               </Grid>
             </Grid>
@@ -79,7 +79,7 @@ export default function Navbar() {
         <Divider className='mt-3' />
         <Typography className='text-center p-3' label=" © 2022 Comsenz Inc. Powered by Discuz!">© 2022 Comsenz Inc. Powered by Discuz!</Typography>
       </Grid>
-      
+
       <MDBModal show={isLoginModalOpen} setShow={setLoginModalOpen} tabIndex='-1'>
         <MDBModalDialog>
           <MDBModalContent>

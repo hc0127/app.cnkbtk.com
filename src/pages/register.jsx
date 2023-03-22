@@ -17,12 +17,16 @@ import {
 } from '@mui/icons-material';
 import ReCAPTCHA from "react-google-recaptcha";
 import axios from '../services/axios'
+import { loadCaptchaEnginge, LoadCanvasTemplate, LoadCanvasTemplateNoReload, validateCaptcha } from 'react-simple-captcha';
 
 export default function Register(props) {
   const [registerData, setRegisterData] = useState({});
   const [showPassword, setShowPassword] = React.useState(false);
 
+  const [captcha, setCaptcha] = React.useState(false);
+
   useEffect(() => {
+    loadCaptchaEnginge(6);
   }, []);
 
   function onChange(value) {
@@ -33,12 +37,14 @@ export default function Register(props) {
   const handleMouseDownPassword = (event) => event.preventDefault();
 
   function register() {
-    if (registerData.password === registerData.cpassword) {
-      axios
-        .post('/register', registerData)
-        .then(function (res) {
-          console.log(res);
-        });
+    if(validateCaptcha(captcha)){
+      if (registerData.password === registerData.cpassword) {
+        axios
+          .post('/register', registerData)
+          .then(function (res) {
+            console.log(res);
+          });
+      }
     }
   }
 
@@ -73,10 +79,11 @@ export default function Register(props) {
                       </InputAdornment>
                     }
                   />
-                  </FormControl>
-                {/* <Grid item>
-                  <ReCAPTCHA sitekey="Your client site key" onChange={onChange} />
-                </Grid> */}
+                </FormControl>
+                <TextField value={registerData.email} onChange={(e) => setCaptcha(e.target.value)} label="验证码" fullWidth variant="standard" />
+                <Grid item>
+                  <LoadCanvasTemplate />
+                </Grid>
                 <Grid item>
                   <Button variant="outlined" onClick={register}>Sign up</Button>
                 </Grid>
