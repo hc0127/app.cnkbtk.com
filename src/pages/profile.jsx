@@ -7,7 +7,8 @@ import {
     Avatar,
     Chip,
     Button,
-    TextField
+    TextField,
+    Checkbox,
 } from '@mui/material';
 import {
     MDBModal,
@@ -18,42 +19,96 @@ import {
     MDBModalBody,
     MDBModalFooter,
 } from 'mdb-react-ui-kit';
+import DataTable from "react-data-table-component";
 import ImageUploading from "react-images-uploading";
+import { NavLink } from 'react-router-dom';
 import axios from '../services/axios';
 
 export default function Profile(props) {
     const [isPasswordSettingModalOpen, setPasswordSettingModalOpen] = useState(false);
     const [isAvatarSettingModalOpen, setAvatarSettingModalOpen] = useState(false);
-    
+
     const [password, setPassword] = useState('');
     const [confirm_password, setConfirmPassword] = useState('');
     const [images, setImages] = useState([]);
+
+    useEffect(() => {
+    }, []);
 
     const passwordModalToggle = () => setPasswordSettingModalOpen(!isPasswordSettingModalOpen);
     const avatarModalToggle = () => setAvatarSettingModalOpen(!isAvatarSettingModalOpen);
 
     const maxNumber = 2;
 
-    const changePassword = () =>{
-        if(password === confirm_password){
+    const changePassword = () => {
+        if (password === confirm_password) {
             axios
-            .post('/change_password',{password:password})
-            .then(function(res){
-                console.log(res);
-            });
+                .post('/change_password', { password: password })
+                .then(function (res) {
+                    console.log(res);
+                });
         }
     }
 
-    const changeAvatar = () =>{
+    const changeAvatar = () => {
         axios
-        .post('/change_avatar',{image:images})
-        .then(function(res){
-            console.log(res);
-        });
+            .post('/change_avatar', { image: images })
+            .then(function (res) {
+                console.log(res);
+            });
     }
 
-    useEffect(() => {
-    }, []);
+    let posts = [{
+        tid: 1,
+        title: '只见她的小蛮腰突然一扭',
+        creator: 'creator 1',
+        content: '<p>Hi</p>',
+        views: 2,
+        created: '2020-05-11',
+        tags: ['DR', 'BC'],
+    }, {
+        tid: 2,
+        title: '腰间与肋骨处上下抓挠',
+        creator: 'creator 2',
+        content: '<p>Hello</p>',
+        views: 5,
+        created: '2022-04-30',
+        tags: ['BP', 'KR'],
+    }];
+
+    let postColumns = [
+        {
+            name: "",
+            center: true,
+            wrap: true,
+            cell: (d) => <Checkbox defaultChecked />
+        },
+        {
+            name: "标题",
+            center: true,
+            wrap: true,
+            sortable: true,
+            cell: (d) => <NavLink to={'/post/view/' + d.tid}>{d.title}</NavLink>,
+        },
+        {
+            name: "创作者",
+            center: true,
+            wrap: true,
+            selector: (row) => row.creator,
+        },
+        {
+            name: "查看",
+            center: true,
+            wrap: true,
+            selector: (row) => row.views,
+        },
+        {
+            name: "标签",
+            center: true,
+            wrap: true,
+            selector: (row) => row.created,
+        },
+    ];
 
     return (
         <>
@@ -159,6 +214,20 @@ export default function Profile(props) {
                         </Grid>
                     </Paper>
                 </Grid>
+                <Grid item container direction="column" mt={1} sm={12} md={12}>
+                    <Grid item>
+                        <Typography variant='h6'>Posts</Typography>
+                    </Grid>
+                    <Grid item>
+                        <DataTable
+                            columns={postColumns}
+                            data={posts}
+                            fixedHeader
+                            defaultPageSize={100}
+                            pagination
+                        />
+                    </Grid>
+                </Grid>
             </Grid>
             <MDBModal show={isPasswordSettingModalOpen} setShow={setPasswordSettingModalOpen} tabIndex='-1'>
                 <MDBModalDialog>
@@ -170,16 +239,16 @@ export default function Profile(props) {
                         <MDBModalBody>
                             <Grid container direction="column" rowSpacing={2} alignItems="center" justifyContent="center">
                                 <Grid item>
-                                    <TextField value={password} onChange={(e) =>setPassword(e.target.value)} type="password" label="New password" variant="standard" />
+                                    <TextField value={password} onChange={(e) => setPassword(e.target.value)} type="password" label="New password" variant="standard" />
                                 </Grid>
                                 <Grid item>
-                                    <TextField value={confirm_password} onChange={(e) =>setConfirmPassword(e.target.value)} type="password" label="Confirm password" variant="standard" />
+                                    <TextField value={confirm_password} onChange={(e) => setConfirmPassword(e.target.value)} type="password" label="Confirm password" variant="standard" />
                                 </Grid>
                             </Grid>
                         </MDBModalBody>
                         <MDBModalFooter>
                             <Button onClick={() => passwordModalToggle()} color='secondary'>Canacel</Button>
-                            <Button onClick={() => changePassword()}  color='primary'>Change</Button>
+                            <Button onClick={() => changePassword()} color='primary'>Change</Button>
                         </MDBModalFooter>
                     </MDBModalContent>
                 </MDBModalDialog>

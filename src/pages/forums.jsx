@@ -79,17 +79,19 @@ export default function Forums(props) {
     <>
       <Grid container>
         <Grid item container direction={"row"} mt={2} spacing={2} alignItems="center">
-          <Grid item sm={6} md={6} xl={6} lg={6}>
-            <Carousel>
-              {
-                galleries.map((gallery, index) => <Gallery key={index} number={gallery} />)
-              }
-            </Carousel>
-          </Grid>
-          <Grid item sm={6} md={6} xl={6} lg={6} >
-            <Paper elevation={3}>
-              <img alt="gallery" src='images/104521jm1mstocwoitcwis.png' width={"100%"} />
-            </Paper>
+          <Grid item container direction="row" justifyContent="center" spacing={2}>
+            <Grid item sm={6} md={6} xl={6} lg={6}>
+              <Carousel>
+                {
+                  galleries.map((gallery, index) => <Gallery key={index} number={gallery} />)
+                }
+              </Carousel>
+            </Grid>
+            <Grid item sm={6} md={6} xl={6} lg={6}  >
+              <Paper elevation={3} sx={{paddingTop:'5rem',paddingBottom:'5rem'}}>
+                <img alt="gallery" src='images/104521jm1mstocwoitcwis.png' width={"100%"} />
+              </Paper>
+            </Grid>
           </Grid>
           <Grid item sm={12} md={12} xl={12} lg={12} mt={3}>
             <Paper className="p-3" elevation={3}>

@@ -20,8 +20,13 @@ import {
   MDBModalFooter,
 } from 'mdb-react-ui-kit';
 
+import { loadCaptchaEnginge, LoadCanvasTemplate, LoadCanvasTemplateNoReload, validateCaptcha } from 'react-simple-captcha';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 import { Outlet, NavLink } from 'react-router-dom';
 import axios from '../services/axios';
+import { useEffect } from 'react';
 
 export default function Navbar() {
   const [isLoginModalOpen, setLoginModalOpen] = useState(false);
@@ -38,10 +43,17 @@ export default function Navbar() {
       });
   }
 
+  const [captcha, setCaptcha] = React.useState(false);
+
+  useEffect(() => {
+    loadCaptchaEnginge(6,'red');
+  }, []);
+
   return (
     <>
       <Box>
         <AppBar position="static" color="white">
+          <ToastContainer />
           <Container maxWidth="lg">
             <Grid container direction={"row"} justifyContent="space-between" alignItems="center">
               <Grid item container direction={"row"} xs={6} md={6} xl={6} lg={6} justifyContent="flex-start" alignItems="center">
@@ -88,16 +100,19 @@ export default function Navbar() {
             </MDBModalHeader>
             <MDBModalBody>
               <Grid container direction="column" rowSpacing={2} alignItems="center" justifyContent="center">
-                <Grid item>
-                  <TextField value={login_email} onChange={(e) => setLoginEmail(e.target.value)} label="邮箱 / 账号" variant="standard" />
+                <Grid item sx={{ width: '60%' }}>
+                  <TextField fullWidth value={login_email} onChange={(e) => setLoginEmail(e.target.value)} label="邮箱 / 账号" variant="standard" />
+                </Grid>
+                <Grid item sx={{ width: '60%' }}>
+                  <TextField fullWidth value={login_password} onChange={(e) => setLoginPassword(e.target.value)} type="password" label="密码" variant="standard" />
                 </Grid>
                 <Grid item>
-                  <TextField value={login_password} onChange={(e) => setLoginPassword(e.target.value)} type="password" label="密码" variant="standard" />
+                  <LoadCanvasTemplate />
                 </Grid>
               </Grid>
             </MDBModalBody>
             <MDBModalFooter>
-              <Button onClick={() => login()} color='primary'>登录</Button>
+              <Button onClick={() => login()} variant='outlined' color='primary'>登录</Button>
             </MDBModalFooter>
           </MDBModalContent>
         </MDBModalDialog>

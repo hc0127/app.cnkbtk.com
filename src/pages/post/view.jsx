@@ -36,7 +36,7 @@ export default function PostView(props) {
         post_count: 34,
         integral: 23,
         tags: ['无鞋', '裸足', 'JK', 'TK', 'MUMUZI', '工作室']
-    });
+    }); 
 
     return (
         <Grid container direction="column" mt={2} >

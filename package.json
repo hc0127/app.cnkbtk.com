@@ -31,6 +31,7 @@
     "react-router-redux": "^4.0.8",
     "react-scripts": "5.0.1",
     "react-simple-captcha": "^9.0.2",
+    "react-toastify": "^9.1.2",
     "rich-editor": "^0.1.11",
     "styled-components": "^5.3.9",
     "tsparticles": "^2.9.3",
